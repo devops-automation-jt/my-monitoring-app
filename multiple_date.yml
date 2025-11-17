@@ -1,0 +1,52 @@
+# api_return.yml
+#最好先export ANSIBLE_CONFIG=/home/admin/your-project/.ansible.cfg配置环境
+---
+- name: 系统监控数据收集
+  hosts: "{{ host_group | default('service_nodes') }}"
+  gather_facts: yes
+
+  tasks:
+    - name: 收集系统指标
+      block:
+        - name: 收集磁盘使用率
+          shell: df / | awk 'NR==2 {print $5}' | sed 's/%//'
+          register: disk_result
+          changed_when: false
+
+        - name: 收集内存使用率
+          shell: free | awk '/Mem/ {printf "%.1f", $3/$2*100}'
+          register: memory_result
+          changed_when: false
+
+        - name: 收集CPU使用率
+          shell: |
+            grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}'
+          register: cpu_result
+          changed_when: false
+
+        - name: 收集系统负载
+          shell: cat /proc/loadavg | awk '{print $1}'
+          register: load_result
+          changed_when: false
+
+      rescue:
+        - name: 指标收集失败处理
+          debug:
+            msg: "指标收集失败"
+
+    - name: 构建监控数据
+      set_fact:
+        host_metrics: {
+          "hostname": "{{ inventory_hostname }}",
+          "disk_usage": "{{ disk_result.stdout | default('0') }}",
+          "memory_usage": "{{ memory_result.stdout | default('0') }}",
+          "cpu_usage": "{{ cpu_result.stdout | default('0') }}",
+          "load_1min": "{{ load_result.stdout | default('0') }}",
+          "timestamp": "{{ ansible_date_time.iso8601 }}"
+        }
+
+    - name: 输出所有主机的JSON格式结果
+      debug:
+        msg: "{{ groups[host_group | default('service_nodes')] | map('extract', hostvars, 'host_metrics') | list | to_json }}"
+      run_once: true
+      delegate_to: localhost
