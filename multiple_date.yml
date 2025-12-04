@@ -1,40 +1,40 @@
 # api_return.yml
-#æœ€å¥½å…ˆexport ANSIBLE_CONFIG=/home/admin/your-project/.ansible.cfgé…ç½®ç¯å¢ƒ
+
 ---
-- name: ç³»ç»Ÿç›‘æ§æ•°æ®æ”¶é›†
+- name: ÏµÍ³¼à¿ØÊı¾İÊÕ¼¯
   hosts: "{{ host_group | default('service_nodes') }}"
   gather_facts: yes
 
   tasks:
-    - name: æ”¶é›†ç³»ç»ŸæŒ‡æ ‡
+    - name: ÊÕ¼¯ÏµÍ³Ö¸±ê
       block:
-        - name: æ”¶é›†ç£ç›˜ä½¿ç”¨ç‡
+        - name: ÊÕ¼¯´ÅÅÌÊ¹ÓÃÂÊ
           shell: df / | awk 'NR==2 {print $5}' | sed 's/%//'
           register: disk_result
           changed_when: false
 
-        - name: æ”¶é›†å†…å­˜ä½¿ç”¨ç‡
+        - name: ÊÕ¼¯ÄÚ´æÊ¹ÓÃÂÊ
           shell: free | awk '/Mem/ {printf "%.1f", $3/$2*100}'
           register: memory_result
           changed_when: false
 
-        - name: æ”¶é›†CPUä½¿ç”¨ç‡
+        - name: ÊÕ¼¯CPUÊ¹ÓÃÂÊ
           shell: |
             grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}'
           register: cpu_result
           changed_when: false
 
-        - name: æ”¶é›†ç³»ç»Ÿè´Ÿè½½
+        - name: ÊÕ¼¯ÏµÍ³¸ºÔØ
           shell: cat /proc/loadavg | awk '{print $1}'
           register: load_result
           changed_when: false
 
       rescue:
-        - name: æŒ‡æ ‡æ”¶é›†å¤±è´¥å¤„ç†
+        - name: Ö¸±êÊÕ¼¯Ê§°Ü´¦Àí
           debug:
-            msg: "æŒ‡æ ‡æ”¶é›†å¤±è´¥"
+            msg: "Ö¸±êÊÕ¼¯Ê§°Ü"
 
-    - name: æ„å»ºç›‘æ§æ•°æ®
+    - name: ¹¹½¨¼à¿ØÊı¾İ
       set_fact:
         host_metrics: {
           "hostname": "{{ inventory_hostname }}",
@@ -45,7 +45,7 @@
           "timestamp": "{{ ansible_date_time.iso8601 }}"
         }
 
-    - name: è¾“å‡ºæ‰€æœ‰ä¸»æœºçš„JSONæ ¼å¼ç»“æœ
+    - name: Êä³öËùÓĞÖ÷»úµÄJSON¸ñÊ½½á¹û
       debug:
         msg: "{{ groups[host_group | default('service_nodes')] | map('extract', hostvars, 'host_metrics') | list | to_json }}"
       run_once: true

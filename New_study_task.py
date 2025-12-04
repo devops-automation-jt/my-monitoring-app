@@ -3,7 +3,6 @@ import psutil
 import random
 from datetime import datetime
 import platform
-
 app = Flask(__name__)
 
 # 模拟一些服务名称
@@ -212,4 +211,4 @@ def all_info():
 
 if __name__ == '__main__':
     # 生产环境中应使用Gunicorn等WSGI服务器，此处仅为演示
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(host='0.0.0.0', port=5004, debug=False)
