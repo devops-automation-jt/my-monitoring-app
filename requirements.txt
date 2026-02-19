@@ -1,0 +1,16 @@
+# Flask后端框架
+Flask==2.3.3
+flask-restful==0.3.10
+python-dotenv==1.0.0
+
+# Ansible集成（替代Paramiko）
+ansible==8.7.0
+ansible-runner==2.3.4
+pyyaml==6.0.1
+
+# Prometheus对接
+prometheus-client==0.17.1
+
+# 辅助工具
+requests==2.31.0
+psutil==5.9.5
