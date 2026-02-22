@@ -9,7 +9,7 @@
 - 通知渠道：Webhook（以 webhook.site 为例）
 
 ### 效果展示截屏
-- [grafana告警演示效果](./alert-disk-usage-service1-82-trigger.png)
+- [grafana告警演示效果](alert-disk.png)
 
 ## 一、前提准备
 告警配置生效的核心前提，需先完成以下步骤：

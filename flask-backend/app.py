@@ -5,8 +5,6 @@ import chardet
 from flask import Flask, Response
 from prometheus_client import Gauge, generate_latest
 
-#TODO 完善GitHub，取消本分支额外文件                                  名
-#todo 提交GitHub后，初步熟悉grafana可视化
 
 app = Flask(__name__)
 

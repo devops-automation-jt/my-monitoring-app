@@ -3,7 +3,7 @@ Flask==2.3.3
 flask-restful==0.3.10
 python-dotenv==1.0.0
 
-# Ansible集成（替代Paramiko）
+# Ansible集成
 ansible==8.7.0
 ansible-runner==2.3.4
 pyyaml==6.0.1

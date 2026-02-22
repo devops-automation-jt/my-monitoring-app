@@ -4,7 +4,7 @@
 - Grafana已配置Prometheus数据源（名称：prometheus，URL：http://localhost:9090）。
 
 ## 效果展示截屏
-- [grafana大屏演示效果](./dashboard-cluster-monitor.png)
+- [grafana大屏演示效果](dashboard-monitor.png)
 
 ## 步骤1：新建总仪表盘（整合大屏载体）
 1. 登录Grafana（http://服务器IP:3000）；

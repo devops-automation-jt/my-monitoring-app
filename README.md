@@ -3,6 +3,36 @@
 my-monitoring-app 是一个全栈运维监控平台，基于 Ansible 实现多台虚拟机的自动化指标采集，通过 Prometheus 统一存储时序数据，
 并利用 Grafana 提供实时可视化和 Webhook 告警能力。后端采用 Flask 构建 REST API，打通配置分发与告警接收链路。
 
+## 目录结构
+```plaintext
+my-monitoring-app/
+├── README.md                # 项目总览
+├── changelog.md             # 版本更新记录
+├── license.md               # 许可证
+├── docs/                    # 详细文档
+│   ├── deployment-guide.md  # 部署步骤
+│   ├── user-manual.md       # 大屏操作/告警配置手册
+│   ├── possible_problems.md # 常见问题
+│   └── architecture/        # 架构相关
+│       └── arch.png         # 极简架构图
+├── ansible/                 # 多机指标采集
+│   ├── multiple_date.yml    # Ansible剧本
+│   └── inventory/           # 主机配置
+│       └── hosts.ini        # 采集主机
+├── prometheus/              # 指标存储
+│   └── prometheus.yml       # Prometheus配置
+├── flask-backend/           # 指标暴露接口
+│   ├── app.py               # Flask入口
+│   └── requirements.txt     # 依赖
+├── grafana/                 # 大屏+告警
+│   ├── alarm.md             # 告警配置说明
+│   ├── dashboards.md        # Grafana大屏制作教程
+│   ├── dashboard-monitor.png# 大屏效果截图
+│   └── alert-disk.png       # 告警效果截图
+└── tests/                   # 测试脚本
+    └── test_flask_api.py    # 测试Flask接口连通性
+```
+
 ## 核心技术栈
 | 模块         | 技术选型       | 选型原因                                  |
 |--------------|----------------|-------------------------------------------|
@@ -50,5 +80,5 @@ http://<服务器IP>:3000
 | docs/setup-guide           | 部署文档、问题排查文档                    |
 
 ## 文档入口
-- 部署文档：[deploy.md](deploy.md)
+- 部署文档：[deployment-guide.md](docs/deployment-guide.md)
 - 问题排查：[possible_problems.md](possible_problems.md)
