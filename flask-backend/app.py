@@ -4,6 +4,7 @@ import json
 import chardet
 from flask import Flask, Response
 from prometheus_client import Gauge, generate_latest
+import os
 
 
 app = Flask(__name__)
@@ -127,7 +128,7 @@ def print_monitor_data():
 if __name__ == '__main__':
     app.run(
         host='0.0.0.0',
-        port=8080,
+        port=int(os.getenv("APP_PORT", 8080)),
         debug=False,
         threaded=False
     )
