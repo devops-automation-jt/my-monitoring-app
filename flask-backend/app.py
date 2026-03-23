@@ -22,12 +22,12 @@ def run_ansible_task():
     try:
         result = subprocess.run(
             [
-                '/home/admin/monitor_project/ci_cd_env/bin/ansible-playbook',
+                '/usr/local/bin/ansible-playbook',
                 '-i', 'inventory/hosts.ini',
                 'api_return.yml'
             ],
             capture_output=True,
-            cwd='/home/admin/monitor_project',
+            cwd='/app/ansible',
             timeout=30
         )
         return True, result.stdout, result.stderr
