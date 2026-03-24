@@ -11,6 +11,7 @@ my-monitoring-app/
 ├── license.md               # 许可证
 ├── docs/                    # 详细文档
 │   ├── deployment-guide.md  # 部署步骤
+│   ├── docker-compose.yml   # docker部署文件
 │   ├── user-manual.md       # 大屏操作/告警配置手册
 │   ├── possible_problems.md # 常见问题
 │   └── architecture/        # 架构相关
@@ -23,7 +24,8 @@ my-monitoring-app/
 │   └── prometheus.yml       # Prometheus配置
 ├── flask-backend/           # 指标暴露接口
 │   ├── app.py               # Flask入口
-│   └── requirements.txt     # 依赖
+│   ├── requirements.txt     # 依赖
+│   └── Dockerfile           # 构建 Flask 监控镜像   
 ├── grafana/                 # 大屏+告警
 │   ├── alarm.md             # 告警配置说明
 │   ├── dashboards.md        # Grafana大屏制作教程

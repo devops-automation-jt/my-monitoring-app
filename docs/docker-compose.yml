@@ -1,0 +1,64 @@
+version: '3.8'
+
+# 容器互通专用网络
+networks:
+  monitoring-network:
+    driver: bridge
+
+# 数据持久化
+volumes:
+  prometheus-data:
+  grafana-data:
+
+services:
+  flask-app:
+    image: ccr.ccs.tencentyun.com/devops-automation-jt/flask-monitor:v1
+    container_name: flask-app
+    networks:
+      - monitoring-network
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_PORT=8080
+    restart: always
+    volumes:
+      - ~/.ssh:/home/flask-user/.ssh:ro
+      - ../ansible:/app/ansible:ro
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    user: root
+    command: ["python", "app.py"]
+
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: prometheus
+    networks:
+      - monitoring-network
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    restart: always
+    command: ['--config.file=/etc/prometheus/prometheus.yml']
+
+  grafana:
+    image: grafana/grafana:9.5.2
+    container_name: grafana
+    networks:
+      - monitoring-network
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      # 监控大屏 JSON 目录
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      # 告警规则 JSON 目录
+      - ./grafana/alerts:/var/lib/grafana/alerts
+      # 自动加载配置（关键：启动自动导入大屏+告警）
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    restart: always
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=shell1300
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=
