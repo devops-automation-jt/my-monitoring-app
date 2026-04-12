@@ -1,17 +1,17 @@
-# Flask后端框架
+# Flask
 Flask==2.3.3
 flask-restful==0.3.10
 python-dotenv==1.0.0
 
-# Ansible集成
+# Ansible
 ansible==8.7.0
 ansible-runner==2.3.4
 pyyaml==6.0.1
 
-# Prometheus对接
+# Prometheus
 prometheus-client==0.17.1
 
-# 辅助工具
+# other
 requests==2.31.0
 psutil==5.9.5
 chardet==5.2.0
