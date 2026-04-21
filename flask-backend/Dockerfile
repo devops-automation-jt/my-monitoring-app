@@ -1,4 +1,5 @@
-FROM python:3.9-alpine
+FROM python:3.9-alpine3.21
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 WORKDIR /app
 ENV PYTHONUNBUFFERED=1 \
     APP_PORT=8080
