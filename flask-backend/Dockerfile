@@ -7,11 +7,11 @@ RUN apk add --no-cache gcc musl-dev python3-dev linux-headers libc-dev openssh-c
 
 RUN pip install --no-cache-dir ansible -i https://pypi.tuna.tsinghua.edu.cn/simple
 
-COPY requirements.txt .
+COPY flask-backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 RUN pip install --no-cache-dir pytest -i https://pypi.tuna.tsinghua.edu.cn/simple
-COPY app.py .
+COPY flask-backend/app.py .
 COPY tests ./tests
 RUN PYTHONPATH=/app pytest tests/test_smoke.py -v
 
