@@ -4,7 +4,7 @@ import json
 import chardet
 from flask import Flask, Response
 from prometheus_client import Gauge, generate_latest
-import os
+import oss
 
 
 app = Flask(__name__)
