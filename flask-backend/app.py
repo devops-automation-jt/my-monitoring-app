@@ -126,14 +126,6 @@ def print_monitor_data():
 
 
 if __name__ == '__main__':
-    # 【测试回滚】启动 5 秒后强制崩溃，触发 HTTP 探测失败 → 自动回滚
-    import threading
-    def _suicide():
-        import time
-        time.sleep(5)
-        os._exit(1)
-    threading.Thread(target=_suicide, daemon=True).start()
-
     app.run(
         host='0.0.0.0',
         port=int(os.getenv("APP_PORT", 8080)),
