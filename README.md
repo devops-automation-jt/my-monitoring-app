@@ -60,7 +60,7 @@ my-monitoring-app/
 ### 快速部署
 ```bash
 # 克隆代码
-git clone https://github.com/automatedoperationdevops153/my-monitoring-app.git
+git clone https://github.com/devops-automation-jt/my-monitoring-app.git
 cd my-monitoring-app
 
 # 修改待监控虚拟机IP列表
