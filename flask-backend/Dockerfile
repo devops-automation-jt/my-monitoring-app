@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua
 RUN pip install --no-cache-dir pytest -i https://pypi.tuna.tsinghua.edu.cn/simple
 COPY flask-backend/app.py .
 COPY tests ./tests
-COPY flask-backend/ansible /app/ansible/
+COPY ansible /app/ansible/
 RUN PYTHONPATH=/app pytest tests/test_smoke.py -v
 
 RUN addgroup -S flask-group && adduser -S flask-user -G flask-group
