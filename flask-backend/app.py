@@ -24,7 +24,7 @@ def run_ansible_task():
             [
                 '/usr/local/bin/ansible-playbook',
                 '-i', 'inventory/hosts.ini',
-                'multiple_return.yml'
+                'multiple_date.yml'
             ],
             capture_output=True,
             cwd='/app/ansible',
